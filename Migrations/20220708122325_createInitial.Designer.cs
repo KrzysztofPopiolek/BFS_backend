@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BFS_backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220707115134_CreateInitial")]
-    partial class CreateInitial
+    [Migration("20220708122325_createInitial")]
+    partial class createInitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,14 +26,11 @@ namespace BFS_backend.Migrations
 
             modelBuilder.Entity("BFS_backend.EventDetails", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Account")
-                        .HasColumnType("nvarchar(max)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"), 1L, 1);
 
                     b.Property<string>("ContractorAddress")
                         .HasColumnType("nvarchar(max)");
@@ -51,6 +48,9 @@ namespace BFS_backend.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TransactionType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TransferType")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
