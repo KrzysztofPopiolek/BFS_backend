@@ -15,7 +15,7 @@ public class BusinessOwnerDetailsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<ContractorDetailsConst>>> Get()
+    public async Task<ActionResult<List<BusinessOwnerDetails>>> Get()
     {
         return Ok(await _context.BusinessOwnerDetails.FirstAsync());
     }
