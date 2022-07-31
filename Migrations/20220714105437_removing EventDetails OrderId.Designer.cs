@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BFS_backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220729190227_init")]
-    partial class init
+    [Migration("20220714105437_removing EventDetails OrderId")]
+    partial class removingEventDetailsOrderId
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,40 +23,6 @@ namespace BFS_backend.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("BFS_backend.ContractorDetailsConst", b =>
-                {
-                    b.Property<long?>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"), 1L, 1);
-
-                    b.Property<string>("ContractorAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ContractorName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DisplayName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EvidenceNumberName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TransactionType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TransferType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ContractorDetailsConsts");
-                });
 
             modelBuilder.Entity("BFS_backend.EventDetails", b =>
                 {

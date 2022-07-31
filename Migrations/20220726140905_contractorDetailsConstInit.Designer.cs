@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BFS_backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220731141026_businessOwnerDetails")]
-    partial class businessOwnerDetails
+    [Migration("20220726140905_contractorDetailsConstInit")]
+    partial class contractorDetailsConstInit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,43 +23,6 @@ namespace BFS_backend.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("BFS_backend.BusinessOwnerDetails", b =>
-                {
-                    b.Property<long?>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"), 1L, 1);
-
-                    b.Property<string>("businessAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("businessEstablishmentDate")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("businessName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("businessUTR")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ownerContact")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ownerHmrcId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ownerName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ownerNin")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BusinessOwnerDetails");
-                });
 
             modelBuilder.Entity("BFS_backend.ContractorDetailsConst", b =>
                 {
