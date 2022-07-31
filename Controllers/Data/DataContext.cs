@@ -9,6 +9,7 @@ namespace BFS_backend.Data
 
         }
         public DbSet<EventDetails> EventDetails { get; set; }
+        public DbSet<BusinessOwnerDetails> BusinessOwnerDetails { get; set; }
         public DbSet<ContractorDetailsConst> ContractorDetailsConsts { get; set; }
     }
 }
