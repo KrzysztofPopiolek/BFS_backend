@@ -20,23 +20,17 @@ public class ContractorDetailsConstController : ControllerBase
         return Ok(await _context.ContractorDetailsConsts.ToListAsync());
     }
 
-    [HttpGet("{displayName}")]
-    public async Task<ActionResult<ContractorDetailsConst>> Get(string displayName)
+    [HttpGet("{id}")]
+    public async Task<ActionResult<ContractorDetailsConst>> Get(long id)
     {
-        // var sortedData = await _context.ContractorDetailsConsts.OrderBy(x => x.DisplayName).ToListAsync();
-        try
+        var contractor = await _context.ContractorDetailsConsts.FindAsync(id);
+
+        if (contractor == null)
         {
-            var singleContractorDetails = await _context.ContractorDetailsConsts.FirstAsync(x => x.DisplayName == displayName);
-            if (singleContractorDetails == null)
-            {
-                return BadRequest("Details not found");
-            }
-            return Ok(singleContractorDetails);
+            return NotFound();
         }
-        catch
-        {
-            return NotFound("Details not found");
-        }
+
+        return contractor;
     }
 
     [HttpPost]
