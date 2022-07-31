@@ -20,11 +20,10 @@ public class EventDetailsController : ControllerBase
         return Ok(await _context.EventDetails.OrderBy(x => x.EventDate).ToListAsync());
     }
 
-    [HttpGet("{index}")]
-    public async Task<ActionResult<EventDetails>> Get(int index)
+    [HttpGet("{id}")]
+    public async Task<ActionResult<EventDetails>> Get(long id)
     {
-        var sortedData = await _context.EventDetails.OrderBy(x => x.EventDate).ToListAsync();
-        var singleEventDetails = await _context.EventDetails.FindAsync(sortedData[index].Id);
+        var singleEventDetails = await _context.EventDetails.FindAsync(id);
         if (singleEventDetails == null)
         {
             return BadRequest("Details not found");
