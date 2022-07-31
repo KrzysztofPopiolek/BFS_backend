@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BFS_backend.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class EventDetailsController : ControllerBase
 {
     private readonly DataContext _context;
@@ -17,13 +17,14 @@ public class EventDetailsController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<EventDetails>>> Get()
     {
-        return Ok(await _context.EventDetails.ToListAsync());
+        return Ok(await _context.EventDetails.OrderBy(x => x.EventDate).ToListAsync());
     }
 
-    [HttpGet("{id}")]
-    public async Task<ActionResult<EventDetails>> Get(long id)
+    [HttpGet("{index}")]
+    public async Task<ActionResult<EventDetails>> Get(int index)
     {
-        var singleEventDetails = await _context.EventDetails.FindAsync(id);
+        var sortedData = await _context.EventDetails.OrderBy(x => x.EventDate).ToListAsync();
+        var singleEventDetails = await _context.EventDetails.FindAsync(sortedData[index].Id);
         if (singleEventDetails == null)
         {
             return BadRequest("Details not found");
@@ -37,7 +38,6 @@ public class EventDetailsController : ControllerBase
         _context.EventDetails.Add(newEventDetail);
         await _context.SaveChangesAsync();
         return CreatedAtAction(nameof(Get), new { id = newEventDetail.Id }, newEventDetail);
-        //return Ok(await _context.EventDetails.ToListAsync());
     }
 
     [HttpPut("{id}")]
