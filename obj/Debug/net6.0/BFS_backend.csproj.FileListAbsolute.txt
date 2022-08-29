@@ -65,7 +65,6 @@ C:\tata\projekt\BFS_backend\bin\Debug\net6.0\BFS_backend.exe
 C:\tata\projekt\BFS_backend\bin\Debug\net6.0\BFS_backend.deps.json
 C:\tata\projekt\BFS_backend\bin\Debug\net6.0\BFS_backend.runtimeconfig.json
 C:\tata\projekt\BFS_backend\bin\Debug\net6.0\BFS_backend.dll
-C:\tata\projekt\BFS_backend\bin\Debug\net6.0\ref\BFS_backend.dll
 C:\tata\projekt\BFS_backend\bin\Debug\net6.0\BFS_backend.pdb
 C:\tata\projekt\BFS_backend\bin\Debug\net6.0\Humanizer.dll
 C:\tata\projekt\BFS_backend\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
@@ -120,3 +119,8 @@ C:\tata\projekt\BFS_backend\obj\Debug\net6.0\BFS_backend.dll
 C:\tata\projekt\BFS_backend\obj\Debug\net6.0\ref\BFS_backend.dll
 C:\tata\projekt\BFS_backend\obj\Debug\net6.0\BFS_backend.pdb
 C:\tata\projekt\BFS_backend\obj\Debug\net6.0\BFS_backend.genruntimeconfig.cache
+C:\tata\projekt\BFS_backend\bin\Debug\net6.0\System.Net.Http.Formatting.dll
+C:\tata\projekt\BFS_backend\bin\Debug\net6.0\System.Web.Http.dll
+C:\tata\projekt\BFS_backend\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\tata\projekt\BFS_backend\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+C:\tata\projekt\BFS_backend\bin\Debug\net6.0\ref\BFS_backend.dll

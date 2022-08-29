@@ -1,0 +1,31 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "eb6b920e-bd98-43bb-bf77-d54294370cd2": {
+      "ProjectGuid": "eb6b920e-bd98-43bb-bf77-d54294370cd2",
+      "DisplayName": "BFSBackend_tests",
+      "ColorIndex": 0
+    },
+    "fc85244e-9cbe-4852-b7ae-15aaa4f7b234": {
+      "ProjectGuid": "fc85244e-9cbe-4852-b7ae-15aaa4f7b234",
+      "DisplayName": "BFS_backend",
+      "ColorIndex": 1
+    },
+    "5e8ed3c5-add1-4a10-af92-3fefdcb4e809": {
+      "ProjectGuid": "5e8ed3c5-add1-4a10-af92-3fefdcb4e809",
+      "DisplayName": "BFSBackend_tests",
+      "ColorIndex": 2
+    },
+    "073e832b-05ea-44ca-aec0-5595bdf74fc1": {
+      "ProjectGuid": "073e832b-05ea-44ca-aec0-5595bdf74fc1",
+      "DisplayName": "BFSBackendTests",
+      "ColorIndex": 3
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    }
+  },
+  "NextColorIndex": 4
+}

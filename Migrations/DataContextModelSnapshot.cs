@@ -22,7 +22,44 @@ namespace BFS_backend.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("BFS_backend.ContractorDetailsConst", b =>
+            modelBuilder.Entity("BFS_backend.Models.BusinessOwnerDetails", b =>
+                {
+                    b.Property<long?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"), 1L, 1);
+
+                    b.Property<string>("businessAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("businessEstablishmentDate")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("businessName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("businessUTR")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ownerContact")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ownerHmrcId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ownerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ownerNin")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BusinessOwnerDetails");
+                });
+
+            modelBuilder.Entity("BFS_backend.Models.ContractorDetailsConst", b =>
                 {
                     b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
@@ -56,7 +93,7 @@ namespace BFS_backend.Migrations
                     b.ToTable("ContractorDetailsConsts");
                 });
 
-            modelBuilder.Entity("BFS_backend.EventDetails", b =>
+            modelBuilder.Entity("BFS_backend.Models.EventDetails", b =>
                 {
                     b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
@@ -91,6 +128,115 @@ namespace BFS_backend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("EventDetails");
+                });
+
+            modelBuilder.Entity("BFS_backend.Models.MileageRecord", b =>
+                {
+                    b.Property<long?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"), 1L, 1);
+
+                    b.Property<string>("Destination")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("FinishOdometerReading")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("LastOdometerReading")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("MilesOutOfService")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Reason")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RecordDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("mileage")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MileageRecords");
+                });
+
+            modelBuilder.Entity("BFS_backend.Models.MonthlyStatement", b =>
+                {
+                    b.Property<long?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"), 1L, 1);
+
+                    b.Property<double>("balance")
+                        .HasColumnType("float");
+
+                    b.Property<string>("comment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("currentBalance")
+                        .HasColumnType("float");
+
+                    b.Property<double>("expenses")
+                        .HasColumnType("float");
+
+                    b.Property<double>("income")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("monthYear")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MonthlyStatements");
+                });
+
+            modelBuilder.Entity("BFS_backend.Models.TaxRate", b =>
+                {
+                    b.Property<long?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"), 1L, 1);
+
+                    b.Property<string>("bandName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("taxRate")
+                        .HasColumnType("real");
+
+                    b.Property<double>("taxableValue")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TaxRates");
+                });
+
+            modelBuilder.Entity("BFS_backend.Models.TaxYearDatesDetails", b =>
+                {
+                    b.Property<long?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("selfAssessmentDeadline")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("taxYearEndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("taxYearStartDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TaxYearDatesDetails");
                 });
 #pragma warning restore 612, 618
         }

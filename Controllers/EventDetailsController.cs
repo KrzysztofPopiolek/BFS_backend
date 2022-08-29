@@ -1,4 +1,5 @@
 using BFS_backend.Data;
+using BFS_backend.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -36,6 +37,8 @@ public class EventDetailsController : ControllerBase
     {
         _context.EventDetails.Add(newEventDetail);
         await _context.SaveChangesAsync();
+        await UpdateMonthlyStatement();
+        await _context.SaveChangesAsync();
         return CreatedAtAction(nameof(Get), new { id = newEventDetail.Id }, newEventDetail);
     }
 
@@ -65,6 +68,9 @@ public class EventDetailsController : ControllerBase
             }
         }
 
+        await UpdateMonthlyStatement();
+        await _context.SaveChangesAsync();
+
         return NoContent();
     }
 
@@ -79,13 +85,71 @@ public class EventDetailsController : ControllerBase
 
         _context.EventDetails.Remove(eventDetail);
         await _context.SaveChangesAsync();
-
+        await UpdateMonthlyStatement();
+        await _context.SaveChangesAsync();
         return NoContent();
     }
 
     private bool EventDetailExists(long id)
     {
         return _context.EventDetails.Any(e => e.Id == id);
+    }
+
+	private async Task<bool> UpdateMonthlyStatement()
+	{
+		var monthlyStatements = await _context.MonthlyStatements.OrderBy(x => x.monthYear).ToListAsync();
+        var eventDetails = await _context.EventDetails.OrderBy(x => x.EventDate).ToListAsync();
+
+        foreach(var statement in monthlyStatements)
+		{
+            statement.income = 0;
+            statement.expenses = 0;
+            statement.balance = 0;
+            statement.currentBalance = 0;
+		}
+
+        foreach (var eventDetail in eventDetails)
+		{
+			foreach (var statement in monthlyStatements)
+			{
+                if (statement.monthYear.Month == eventDetail.EventDate?.Month && statement.monthYear.Year == eventDetail.EventDate?.Year)
+                {
+                    if (eventDetail.TransactionType == "income")
+                    {
+                        statement.income += eventDetail.EventValue;
+                    }
+                    else if (eventDetail.TransactionType == "expense")
+                    {
+                        statement.expenses += eventDetail.EventValue;
+                    }
+                    statement.balance = statement.income - statement.expenses;
+                    if(statement.balance > 0)
+					{
+                        statement.comment = "PROFIT";
+					}
+                    else if(statement.balance < 0)
+					{
+                        statement.comment = "LOSS";
+					}
+                    else
+					{
+                        statement.comment = "BREAK-EVEN";
+                    }
+                    _context.Entry(statement).State = EntityState.Modified;
+                    break;
+                }
+			}
+		}
+        var index = 0;
+        foreach (var statement in monthlyStatements)
+		{
+            for (int i = 0; i <= index; i++)
+            {
+                statement.currentBalance += monthlyStatements[i].balance;
+            }
+            index++;
+        }
+        return true;
     }
 }
 
