@@ -16,5 +16,6 @@ namespace BFS_backend.Data
         public virtual DbSet<TaxRate> TaxRates { get; set; }
         public virtual DbSet<MileageRecord> MileageRecords { get; set; }
         public virtual DbSet<MonthlyStatement> MonthlyStatements { get; set; }
+        public virtual DbSet<VehicleDetails> VehicleDetails { get; set; }
     }
 }
