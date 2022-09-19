@@ -1,4 +1,5 @@
 using BFS_backend.Data;
+using BFS_backend.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +18,22 @@ public class BusinessOwnerDetailsController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<BusinessOwnerDetails>>> Get()
     {
-        return Ok(await _context.BusinessOwnerDetails.FirstAsync());
+        try
+        {
+            var businessOwnerDetails = await _context.BusinessOwnerDetails.FirstAsync();
+            return Ok(businessOwnerDetails);
+        }
+        catch
+        {
+            return NotFound();
+        }
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<List<BusinessOwnerDetails>>> Post(BusinessOwnerDetails newBusinessOwnerDetails)
+    {
+        _context.BusinessOwnerDetails.Add(newBusinessOwnerDetails);
+        await _context.SaveChangesAsync();
+        return CreatedAtAction(nameof(Get), new { id = newBusinessOwnerDetails.Id }, newBusinessOwnerDetails);
     }
 }

@@ -1,3 +1,4 @@
+using BFS_backend.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace BFS_backend.Data
@@ -8,8 +9,12 @@ namespace BFS_backend.Data
         {
 
         }
-        public DbSet<EventDetails> EventDetails { get; set; }
-        public DbSet<BusinessOwnerDetails> BusinessOwnerDetails { get; set; }
-        public DbSet<ContractorDetailsConst> ContractorDetailsConsts { get; set; }
+        public virtual DbSet<EventDetails> EventDetails { get; set; }
+        public virtual DbSet<BusinessOwnerDetails> BusinessOwnerDetails { get; set; }
+        public virtual DbSet<ContractorDetailsConst> ContractorDetailsConsts { get; set; }
+        public virtual DbSet<TaxYearDatesDetails> TaxYearDatesDetails { get; set; }
+        public virtual DbSet<TaxRate> TaxRates { get; set; }
+        public virtual DbSet<MileageRecord> MileageRecords { get; set; }
+        public virtual DbSet<MonthlyStatement> MonthlyStatements { get; set; }
     }
 }
