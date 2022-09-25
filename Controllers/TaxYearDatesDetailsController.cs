@@ -20,13 +20,24 @@ public class TaxYearDatesDetailsController : ControllerBase
     {
         try
         {
-            var taxYearDatesDetails = await _context.TaxYearDatesDetails.FirstAsync();
+            var taxYearDatesDetails = await _context.TaxYearDatesDetails.ToListAsync();
             return Ok(taxYearDatesDetails);
         }
         catch
         {
             return NotFound();
         }
+    }
+
+    [HttpGet("getById/{id}")]
+    public async Task<ActionResult<TaxYearDatesDetails>> GetById(long id)
+    {
+        var taxYearDatesDetails = await _context.TaxYearDatesDetails.FindAsync(id);
+        if (taxYearDatesDetails == null)
+        {
+            return BadRequest("Details not found");
+        }
+        return Ok(taxYearDatesDetails);
     }
 
     [HttpPost]
@@ -40,43 +51,40 @@ public class TaxYearDatesDetailsController : ControllerBase
 
     private async void addMonthsToMonthlyStatements(TaxYearDatesDetails newTaxYearDatesDetails)
 	{
-        var monthlyStatements = await _context.MonthlyStatements.ToListAsync();
+        System.Diagnostics.Debug.Print("here");
 
-        if (monthlyStatements.Count <= 0)
+        var target = new DateTime(newTaxYearDatesDetails.taxYearStartDate.Year,
+            newTaxYearDatesDetails.taxYearStartDate.Month + 1,
+            newTaxYearDatesDetails.taxYearStartDate.Day);
+
+        var newDates = new List<DateTime>();
+        while (target <= newTaxYearDatesDetails.taxYearEndDate)
         {
-            var target = new DateTime(newTaxYearDatesDetails.taxYearStartDate.Year,
-                newTaxYearDatesDetails.taxYearStartDate.Month + 1,
-                newTaxYearDatesDetails.taxYearStartDate.Day);
-
-            var newDates = new List<DateTime>();
-            while (target <= newTaxYearDatesDetails.taxYearEndDate)
-            {
-                var newDate = new DateTime(target.Year, target.Month, 1);
-                newDates.Add(newDate);
-                target = target.AddMonths(1);
-            }
-
-            var firstDate = new DateTime(
-                newTaxYearDatesDetails.taxYearStartDate.Year,
-                newTaxYearDatesDetails.taxYearStartDate.Month,
-                newTaxYearDatesDetails.taxYearStartDate.Day);
-
-            var firstStatement = new MonthlyStatement(firstDate, 0, 0, 0, 0, "");
-            _context.MonthlyStatements.Add(firstStatement);
-
-            foreach (var date in newDates)
-            {
-                var statementWithDate = new MonthlyStatement(date, 0, 0, 0, 0, "");
-                _context.MonthlyStatements.Add(statementWithDate);
-            }
-
-            var lastDate = new DateTime(
-                newTaxYearDatesDetails.taxYearEndDate.Year,
-                newTaxYearDatesDetails.taxYearEndDate.Month, 
-                newTaxYearDatesDetails.taxYearEndDate.Day);
-
-            var lastStatement = new MonthlyStatement(lastDate, 0, 0, 0, 0, "");
-            _context.MonthlyStatements.Add(lastStatement);
+            var newDate = new DateTime(target.Year, target.Month, 1);
+            newDates.Add(newDate);
+            target = target.AddMonths(1);
         }
+        System.Diagnostics.Debug.Print("here3");
+        var firstDate = new DateTime(
+            newTaxYearDatesDetails.taxYearStartDate.Year,
+            newTaxYearDatesDetails.taxYearStartDate.Month,
+            newTaxYearDatesDetails.taxYearStartDate.Day);
+
+        var firstStatement = new MonthlyStatement(firstDate, 0, 0, 0, 0, "");
+        _context.MonthlyStatements.Add(firstStatement);
+
+        foreach (var date in newDates)
+        {
+            var statementWithDate = new MonthlyStatement(date, 0, 0, 0, 0, "");
+            _context.MonthlyStatements.Add(statementWithDate);
+        }
+
+        var lastDate = new DateTime(
+            newTaxYearDatesDetails.taxYearEndDate.Year,
+            newTaxYearDatesDetails.taxYearEndDate.Month, 
+            newTaxYearDatesDetails.taxYearEndDate.Day);
+        System.Diagnostics.Debug.Print("here4");
+        var lastStatement = new MonthlyStatement(lastDate, 0, 0, 0, 0, "");
+        _context.MonthlyStatements.Add(lastStatement);
     }
 }

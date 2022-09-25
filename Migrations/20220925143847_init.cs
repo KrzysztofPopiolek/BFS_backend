@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BFS_backend.Migrations
 {
-    public partial class createInitial : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -22,7 +22,8 @@ namespace BFS_backend.Migrations
                     ownerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ownerNin = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ownerHmrcId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ownerContact = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ownerContact = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    creationDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -74,17 +75,35 @@ namespace BFS_backend.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RecordDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    RecordDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Destination = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Reason = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastOdometerReading = table.Column<long>(type: "bigint", nullable: false),
                     FinishOdometerReading = table.Column<long>(type: "bigint", nullable: false),
                     MilesOutOfService = table.Column<long>(type: "bigint", nullable: true),
-                    mileage = table.Column<long>(type: "bigint", nullable: false)
+                    mileage = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_MileageRecords", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MonthlyStatements",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    monthYear = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    income = table.Column<double>(type: "float", nullable: false),
+                    expenses = table.Column<double>(type: "float", nullable: false),
+                    balance = table.Column<double>(type: "float", nullable: false),
+                    currentBalance = table.Column<double>(type: "float", nullable: false),
+                    comment = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MonthlyStatements", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -116,6 +135,30 @@ namespace BFS_backend.Migrations
                 {
                     table.PrimaryKey("PK_TaxYearDatesDetails", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "VehicleDetails",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    vehRegNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    vehMake = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    vehModel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    vehCategory = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    vehBody = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    vehColour = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    vehFuelType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    vehEngineCapacity = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    vehRegDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    vehV5CIssueDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    vehTaxExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    vehMotExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VehicleDetails", x => x.Id);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -133,10 +176,16 @@ namespace BFS_backend.Migrations
                 name: "MileageRecords");
 
             migrationBuilder.DropTable(
+                name: "MonthlyStatements");
+
+            migrationBuilder.DropTable(
                 name: "TaxRates");
 
             migrationBuilder.DropTable(
                 name: "TaxYearDatesDetails");
+
+            migrationBuilder.DropTable(
+                name: "VehicleDetails");
         }
     }
 }

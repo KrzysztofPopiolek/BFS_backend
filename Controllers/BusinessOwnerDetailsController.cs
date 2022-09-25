@@ -20,7 +20,7 @@ public class BusinessOwnerDetailsController : ControllerBase
     {
         try
         {
-            var businessOwnerDetails = await _context.BusinessOwnerDetails.FirstAsync();
+            var businessOwnerDetails = await _context.BusinessOwnerDetails.ToListAsync();
             return Ok(businessOwnerDetails);
         }
         catch
@@ -32,6 +32,7 @@ public class BusinessOwnerDetailsController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<List<BusinessOwnerDetails>>> Post(BusinessOwnerDetails newBusinessOwnerDetails)
     {
+        newBusinessOwnerDetails.creationDate = DateTime.Now;
         _context.BusinessOwnerDetails.Add(newBusinessOwnerDetails);
         await _context.SaveChangesAsync();
         return CreatedAtAction(nameof(Get), new { id = newBusinessOwnerDetails.Id }, newBusinessOwnerDetails);

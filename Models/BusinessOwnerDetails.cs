@@ -11,4 +11,5 @@ public class BusinessOwnerDetails
     public string? ownerNin { get; set; }
     public string? ownerHmrcId { get; set; }
     public string? ownerContact { get; set; }
+    public DateTime? creationDate { get; set; }
 }

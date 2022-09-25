@@ -42,6 +42,9 @@ namespace BFS_backend.Migrations
                     b.Property<string>("businessUTR")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("creationDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("ownerContact")
                         .HasColumnType("nvarchar(max)");
 
@@ -237,6 +240,55 @@ namespace BFS_backend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TaxYearDatesDetails");
+                });
+
+            modelBuilder.Entity("BFS_backend.Models.VehicleDetails", b =>
+                {
+                    b.Property<long?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"), 1L, 1);
+
+                    b.Property<string>("vehBody")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("vehCategory")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("vehColour")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("vehEngineCapacity")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("vehFuelType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("vehMake")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("vehModel")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("vehMotExpiryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("vehRegDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("vehRegNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("vehTaxExpiryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("vehV5CIssueDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("VehicleDetails");
                 });
 #pragma warning restore 612, 618
         }
